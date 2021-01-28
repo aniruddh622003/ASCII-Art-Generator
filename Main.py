@@ -1,14 +1,14 @@
 import PIL.Image as im
 
-ASCII_Char = ['@', '#', '$', '%', '?', '*', '+', '-', ';', '.']
+ASCII_Char = ['B', '@', '#', '$', 'U', '%', '?', '*', '+', '-', ';', '.']
 # ASCII_Char = ['.', ';', '-', '+', '*', '?', '%', '$', '#', '@']
 # ASCII_Char = ['B', '$', '@', '#', 'U', '%', '^', '*', '!', '.']
 
 
-def resize(image, width=100):
+def resize(image, width=300):
     im_width, im_height = image.size
     ratio = (im_height/im_width)
-    height = int(ratio * width * 0.5)
+    height = int(ratio * width * 0.55)
     resized_image = image.resize((width, height))
     return resized_image
 
@@ -20,7 +20,7 @@ def gray(image):
 
 def conversion_to_ascii(image):
     pixels = image.getdata()
-    characters = "".join(ASCII_Char[pixel//26] for pixel in pixels)
+    characters = "".join(ASCII_Char[pixel//24] for pixel in pixels)
     return characters
 
 
@@ -34,7 +34,7 @@ def main():
 
     new_image_data = conversion_to_ascii(gray(resize(image)))
     pixel_count = len(new_image_data)
-    ASCII_Image = "\n".join(new_image_data[i:(i+100)] for i in range(0, pixel_count, 100))
+    ASCII_Image = "\n".join(new_image_data[i:(i+300)] for i in range(0, pixel_count, 300))
 
     print(ASCII_Image)
 
